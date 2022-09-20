@@ -31,9 +31,6 @@ public class Unit : MonoBehaviour
     public GameObject nextLevelUnitPrefab;
     public UnitType unitType;
     public Grid whichGrid;
-    public string name;
-    public int cost;
-    public Sprite sprite;
     [HideInInspector] public Animator animator;
     public Side side;
     public State state;

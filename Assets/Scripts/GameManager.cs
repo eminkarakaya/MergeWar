@@ -11,41 +11,45 @@ using UnityEngine.UI;
     }
 public class GameManager : MonoBehaviour,IDataPersistence
 {
-    [HideInInspector] public bool oyunBittimi;
+    public int level;
+    [Header("Lists")]
+
     public List<Grid> allGrids;
     public List<Unit> allEnemies;
-    public List<Grid> ourGrids;
+    [SerializeField] List<Grid> ourGrids;
     public List<Unit> allAlly;
     public List<Grid> enemiesGrids;
-    public GameObject winCanvas;
-    public GameObject loseCanvas;
+    [Space(20)]
+    [Header("UI")] 
+    [SerializeField] GameObject winCanvas;
+    [SerializeField] GameObject loseCanvas;
     float distanceFactor = 100;
     float radius =200;
-    public Text WinLoseText;
-    public Text EarnedGoldText;
-    public Color allyColor;
-    public Color enemyColor;
-    public GameObject buyPanel;
-    public int level;
-    public RectTransform goldinScene;
-    public Ease ease;
-    public Transform parent;
-    public int earnedGold;
-    public GameObject goldPrefab;
+    [SerializeField] Text WinLoseText;
+    [SerializeField] Text EarnedGoldText;
+    [SerializeField] Color enemyColor;
+    [SerializeField] RectTransform goldinScene;
+    [SerializeField] Ease ease;
+    [SerializeField] Transform parent;
+    int earnedGold;
+    [SerializeField] GameObject goldPrefab;
     public GameStage gameStage;
     private static GameManager _instance;
     public static GameManager instance{get =>_instance;}
+    [HideInInspector] public bool oyunBittimi;
+    [Header("HeroBuy")]
+    public GameObject buyPanel;
     public GameObject meleePrefab;
     public GameObject rangePrefab;
     int defaultRangeCost = 45;
     int defaultMeleeCost = 30;
     int rangeBuyCount;
     int meleeBuyCount;
-    public Text meleeCostText;
-    public Text rangeCostText;
-    public Text goldText;
-    public GameObject rangeAdBtn;
-    public GameObject meleeAdBtn;
+    [SerializeField] Text meleeCostText;
+    [SerializeField] Text rangeCostText;
+    [SerializeField] Text goldText;
+    [SerializeField] GameObject rangeAdBtn;
+    [SerializeField] GameObject meleeAdBtn;
     [SerializeField] private int _gold;
     public int gold{ get => _gold;
         set{
@@ -68,7 +72,7 @@ public class GameManager : MonoBehaviour,IDataPersistence
             if(allGrids[i].index > 15)
                 enemiesGrids.Add(allGrids[i]);
         }
-        SetAllEnemies();
+        FindAllEnemies();
     }
     IEnumerator Dance(List<Unit> winnerTeam, GameObject canvas ,  bool win)
     {
@@ -185,7 +189,7 @@ public class GameManager : MonoBehaviour,IDataPersistence
     public void StartBattleBtn()
     {
         buyPanel.SetActive(false);
-        SetAllEnemies();
+        FindAllEnemies();
         for (int i = 0; i < allGrids.Count; i++)
         {
             if(allGrids[i].heroOnGround != null)
@@ -257,7 +261,6 @@ public class GameManager : MonoBehaviour,IDataPersistence
                 Destroy(allGrids[i].heroOnGround.gameObject);
                 allGrids[i].heroOnGround = null;
             }
-
         }
     }
     public IEnumerator EarnGoldAnim()
@@ -296,7 +299,7 @@ public class GameManager : MonoBehaviour,IDataPersistence
         // obj1.transform.DOMove(goldinScene.transform.position,.7f).SetEase(ease).OnComplete(()=> Destroy(obj1.gameObject)).OnComplete(()=> SetGold(gold));
 
     }
-    public void SetAllEnemies()
+    public void FindAllEnemies()
     {
         allEnemies.Clear();
         allAlly.Clear();

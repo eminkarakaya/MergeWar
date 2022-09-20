@@ -94,5 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ad1df4ad865dc45961c61b7af53f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpPower: 4
+  rangeAttack: {fileID: 0}
+  ease: 0
   target: {fileID: 0}
   distance: 0

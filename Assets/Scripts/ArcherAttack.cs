@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-public class ArcherAttack : RangeAttack
+public class ArcherAttack : Attack
 {
-    protected override void Start()
-    {
-        base.Start();
-    }
+    
+    [SerializeField] Arrow arrow;
+    [SerializeField] Transform hand;
+    float distance;
+    
     void Update()
     {
         if(GameManager.instance.gameStage == GameStage.inGame)
@@ -28,6 +29,18 @@ public class ArcherAttack : RangeAttack
                 target = null;
                 unit.animator.SetBool("Attack",false);
             }   
+        }
+    }
+    void Fire()
+    {
+        if(target != null)
+        {
+            distance= Vector3.Distance(transform.position,target.transform.position);
+            var arrowObj = Instantiate(arrow,hand.position,Quaternion.identity);
+            arrowObj.rangeAttack = this;
+            arrowObj.target = target;
+            arrowObj.distance = distance;
+            arrowObj.Fly();
         }
     }
 }

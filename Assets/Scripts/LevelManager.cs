@@ -20,12 +20,4 @@ public class LevelManager : MonoBehaviour //, IDataPersistence
     {
         _instance = this;
     }
-    // public void LoadData(GameData data)
-    // {
-    //     levels = data.levels;
-    // }
-    // public void SaveData(ref GameData data)
-    // {
-    //     data.levels = levels;
-    // }
 }

@@ -8,10 +8,7 @@ public class Attack : MonoBehaviour
     Animator animator;
     [SerializeField] protected Range rangeClass;
     protected Unit unit;
-    [SerializeField] protected float attackRate = 1;
-    protected float attackRateTemp;
-
-    [SerializeField] protected int _damage = 3;
+    [SerializeField] protected int _damage;
     public int damage{
         get => _damage;
         set{
@@ -23,7 +20,6 @@ public class Attack : MonoBehaviour
     protected virtual void Start()
     {
         rangeClass = transform.GetChild(0).GetComponent<Range>();
-        attackRateTemp = attackRate;
         unit = GetComponent<Unit>();
         animator = unit.animator;
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Range : MonoBehaviour
 {
-    public Attack parentAttack;
+    Attack parentAttack;
     public List<Unit> enemiesInRange = new List<Unit>();
     SphereCollider rangeCollider;
     void Awake()

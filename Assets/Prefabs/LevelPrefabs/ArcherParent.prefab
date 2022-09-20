@@ -827,7 +827,6 @@ GameObject:
   - component: {fileID: 2496474356719070232}
   - component: {fileID: 2496474356719070234}
   - component: {fileID: 2496474356719070235}
-  - component: {fileID: 1198076118793981274}
   - component: {fileID: 2898376817220794823}
   m_Layer: 0
   m_Name: SonArcher
@@ -984,26 +983,6 @@ MonoBehaviour:
   agent: {fileID: 0}
   target: {fileID: 0}
   speed: 2
---- !u!114 &1198076118793981274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2496474356719070238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bee61c72db24424089aedfcf3b4e80d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attack: 0
-  rangeClass: {fileID: 0}
-  attackRate: 1
-  _damage: 30
-  range: 50
-  target: {fileID: 0}
-  arrow: {fileID: 0}
-  hand: {fileID: 0}
 --- !u!114 &2898376817220794823
 MonoBehaviour:
   m_ObjectHideFlags: 0
