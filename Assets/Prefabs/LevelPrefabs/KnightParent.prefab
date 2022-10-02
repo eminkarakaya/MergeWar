@@ -62,14 +62,22 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1654375250332632818, guid: 10445969bfa18df4088bf04a83911f10, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1739371648054483204, guid: 10445969bfa18df4088bf04a83911f10, type: 3}
       propertyPath: range
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3746397552708331001, guid: 10445969bfa18df4088bf04a83911f10, type: 3}
+      propertyPath: m_Constraints
+      value: 96
+      objectReference: {fileID: 0}
     - target: {fileID: 3746397552708331004, guid: 10445969bfa18df4088bf04a83911f10, type: 3}
       propertyPath: nextLevelUnitPrefab
       value: 
-      objectReference: {fileID: 4728014724868796755, guid: 201b46e33a904c84b84f149f14073d46, type: 3}
+      objectReference: {fileID: 1976537629845328277, guid: 23a6b082466df1248a6acd361c809e1a, type: 3}
     - target: {fileID: 3746397552708331006, guid: 10445969bfa18df4088bf04a83911f10, type: 3}
       propertyPath: m_Controller
       value: 

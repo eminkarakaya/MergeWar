@@ -887,7 +887,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 96
   m_CollisionDetection: 0
 --- !u!65 &2496474356719070233
 BoxCollider:
@@ -936,9 +936,6 @@ MonoBehaviour:
   nextLevelUnitPrefab: {fileID: 4664149204510135503, guid: e62057d5bb4c8c047b38872c72999ba1, type: 3}
   unitType: 1
   whichGrid: {fileID: 0}
-  name: 
-  cost: 0
-  sprite: {fileID: 0}
   animator: {fileID: 3015393720728712127, guid: ef0431805a8eb674bb5ae3fec2c172ed, type: 3}
   side: 1
   state: 0
@@ -997,7 +994,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: 0
   rangeClass: {fileID: 0}
-  attackRate: 1
   _damage: 20
   range: 30
   target: {fileID: 0}
@@ -2846,6 +2842,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 42404934197126233, guid: caef8570f179bd04898e192151edffea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3574980897615332544, guid: caef8570f179bd04898e192151edffea, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6270774825204152077, guid: caef8570f179bd04898e192151edffea, type: 3}

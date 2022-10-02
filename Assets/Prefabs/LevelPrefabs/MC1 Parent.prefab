@@ -141,6 +141,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3315196567196810182, guid: 27890063d8d970742b60179712d59ef0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3315196567196810182, guid: 27890063d8d970742b60179712d59ef0, type: 3}
       propertyPath: parentAttack
       value: 
       objectReference: {fileID: 0}
@@ -159,6 +163,10 @@ PrefabInstance:
     - target: {fileID: 4388603231052838285, guid: 27890063d8d970742b60179712d59ef0, type: 3}
       propertyPath: m_Radius
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388603231052838285, guid: 27890063d8d970742b60179712d59ef0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4970661415478140313, guid: 27890063d8d970742b60179712d59ef0, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -199,7 +207,7 @@ PrefabInstance:
     - target: {fileID: 8836215957824130866, guid: 27890063d8d970742b60179712d59ef0, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9100000, guid: 865d9260098b66f46b488b5a20ee4670, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27890063d8d970742b60179712d59ef0, type: 3}
 --- !u!1 &2336634466259451168 stripped
@@ -258,7 +266,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 96
   m_CollisionDetection: 0
 --- !u!65 &1456893112978121746
 BoxCollider:
@@ -295,7 +303,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3158185795600134460
+--- !u!114 &3432741398290032794
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -304,18 +312,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2336634466259451168}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc192db2fcbd5674c9313f7e7d8e892a, type: 3}
+  m_Script: {fileID: 11500000, guid: 49cda734d5aaa8644ae77e002f089ad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attack: 0
   rangeClass: {fileID: 0}
-  attackRate: 1
-  _damage: 100
-  range: 40
+  _damage: 0
+  range: 2000
   target: {fileID: 0}
   arrow: {fileID: 8081009209113006565, guid: 8356ae50268ce8b4f8de85b1410f69ac, type: 3}
   hand: {fileID: 603899560}
-  fireParticle: {fileID: 0}
 --- !u!114 &7267725024846510938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,21 +340,6 @@ MonoBehaviour:
   agent: {fileID: 0}
   target: {fileID: 0}
   speed: 5
---- !u!114 &7285237306694683786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2336634466259451168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76572c35b02522b4eb0344af124c4f14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHp: 10000
-  hpSlider: {fileID: 7087822359146073788}
-  _hp: 10000
 --- !u!114 &8311069754150624102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,10 +359,22 @@ MonoBehaviour:
   nextLevelUnitPrefab: {fileID: 4971788730767769811, guid: 459e8c5f4aec0db479be6dd95773249a, type: 3}
   unitType: 4
   whichGrid: {fileID: 0}
-  name: 
-  cost: 0
-  sprite: {fileID: 0}
   animator: {fileID: 0}
   side: 1
   state: 0
   agent: {fileID: 0}
+--- !u!114 &8446582880497057820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2336634466259451168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76572c35b02522b4eb0344af124c4f14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 10000
+  hpSlider: {fileID: 7087822359146073788}
+  _hp: 10000

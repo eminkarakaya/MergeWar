@@ -293,6 +293,7 @@ public class GameManager : MonoBehaviour,IDataPersistence
         goldText.transform.DOScale(Vector3.one *1.5f,.4f).OnComplete(()=>goldText.transform.DOScale(Vector3.one,.4f));
         yield return new WaitForSeconds(.8f);
         winCanvas.SetActive(false);    
+        loseCanvas.SetActive(false);    
         buyPanel.SetActive(true);       
         // var obj1 = Instantiate(goldPrefab,parent.transform.position,Quaternion.identity, parent);
         // gold = gameManager.earnedGold%100;

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2982324948436910734}
   m_Layer: 0
   m_Name: SwatParent 2
-  m_TagString: Untagged
+  m_TagString: Char
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,10 +38,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2982324948436910734}
     m_Modifications:
+    - target: {fileID: 61195773969337797, guid: 1e72cfd6cab43264dab60c9f8021953b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 249509659360129507, guid: 1e72cfd6cab43264dab60c9f8021953b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 54937c970b76d9c439222124ecbb62a0, type: 3}
+    - target: {fileID: 1674927678262367044, guid: 1e72cfd6cab43264dab60c9f8021953b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2691526371849960438, guid: 1e72cfd6cab43264dab60c9f8021953b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.85302
+      objectReference: {fileID: 0}
+    - target: {fileID: 2691526371849960438, guid: 1e72cfd6cab43264dab60c9f8021953b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.758829
+      objectReference: {fileID: 0}
+    - target: {fileID: 2691526371849960438, guid: 1e72cfd6cab43264dab60c9f8021953b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 15.12
+      objectReference: {fileID: 0}
     - target: {fileID: 3403676759676400585, guid: 1e72cfd6cab43264dab60c9f8021953b, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 85c2a6977b27e2b4b95522927d402f2b, type: 2}
+    - target: {fileID: 4746289526891906113, guid: 1e72cfd6cab43264dab60c9f8021953b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4746289526891906113, guid: 1e72cfd6cab43264dab60c9f8021953b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4746289526891906113, guid: 1e72cfd6cab43264dab60c9f8021953b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 15.58
+      objectReference: {fileID: 0}
     - target: {fileID: 6627549338049896613, guid: 1e72cfd6cab43264dab60c9f8021953b, type: 3}
       propertyPath: m_LocalScale.x
       value: 100.000015
@@ -86,9 +122,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -65.781
       objectReference: {fileID: 0}
+    - target: {fileID: 7759752382651459314, guid: 1e72cfd6cab43264dab60c9f8021953b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7759752382651459314, guid: 1e72cfd6cab43264dab60c9f8021953b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8257268014459532041, guid: 1e72cfd6cab43264dab60c9f8021953b, type: 3}
       propertyPath: m_Name
       value: Swat
+      objectReference: {fileID: 0}
+    - target: {fileID: 8257268014459532041, guid: 1e72cfd6cab43264dab60c9f8021953b, type: 3}
+      propertyPath: m_TagString
+      value: Char
       objectReference: {fileID: 0}
     - target: {fileID: 8781004622710860211, guid: 1e72cfd6cab43264dab60c9f8021953b, type: 3}
       propertyPath: m_RootOrder
@@ -197,7 +245,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 96
   m_CollisionDetection: 0
 --- !u!65 &2528464563049546737
 BoxCollider:
@@ -231,9 +279,6 @@ MonoBehaviour:
   nextLevelUnitPrefab: {fileID: 431436459279922228, guid: 794f8641074be5646980c0808e03c4d2, type: 3}
   unitType: 0
   whichGrid: {fileID: 0}
-  name: 
-  cost: 0
-  sprite: {fileID: 0}
   animator: {fileID: 3015393720728712127, guid: ef0431805a8eb674bb5ae3fec2c172ed, type: 3}
   side: 1
   state: 0
@@ -292,7 +337,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: 0
   rangeClass: {fileID: 0}
-  attackRate: 1
   _damage: 30
   range: 100
   target: {fileID: 0}

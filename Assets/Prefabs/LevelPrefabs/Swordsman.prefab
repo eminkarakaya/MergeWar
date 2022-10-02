@@ -310,7 +310,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 96
   m_CollisionDetection: 0
 --- !u!65 &3604333061745189189
 BoxCollider:
@@ -354,7 +354,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: 0
   rangeClass: {fileID: 0}
-  attackRate: 1
   _damage: 10
   range: 12
   target: {fileID: 0}
@@ -377,9 +376,6 @@ MonoBehaviour:
   nextLevelUnitPrefab: {fileID: 2989124390107305966, guid: 94f2b7becbcee384990fd3a071437b30, type: 3}
   unitType: 0
   whichGrid: {fileID: 0}
-  name: 
-  cost: 0
-  sprite: {fileID: 0}
   animator: {fileID: 3015393720728712127, guid: ef0431805a8eb674bb5ae3fec2c172ed, type: 3}
   side: 1
   state: 0

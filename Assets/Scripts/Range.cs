@@ -7,11 +7,22 @@ public class Range : MonoBehaviour
     Attack parentAttack;
     public List<Unit> enemiesInRange = new List<Unit>();
     SphereCollider rangeCollider;
+    bool isColliderActive;
     void Awake()
     {
         parentAttack = GetComponentInParent<Attack>();
         rangeCollider = GetComponent<SphereCollider>();
         rangeCollider.radius = parentAttack.range;
+    }
+    void Update()
+    {
+        if(isColliderActive)
+            return;
+        if(GameManager.instance.gameStage == GameStage.inGame)
+        {
+            GetComponent<Collider>().enabled = true;
+            isColliderActive = true;
+        }
     }
     void OnTriggerEnter(Collider other)
     {

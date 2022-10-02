@@ -21,4 +21,29 @@ public class RangeAttack : Attack
             arrowObj.Fly();
         }
     }
+    void Update()
+    {
+        if(GameManager.instance.gameStage == GameStage.inGame)
+        {
+            if(rangeClass.enemiesInRange.Count > 0)
+            {
+                if(attack)
+                {
+                    target = rangeClass.enemiesInRange[0];
+                    transform.LookAt(target.transform);
+                    unit.state = State.attack;
+                    Fire();
+                    if(TryGetComponent(out Movement movement))
+                        movement.agent.speed = 0;
+                }
+            }
+            else
+            {
+                unit.state = State.walk;
+                target = null;
+                unit.animator.SetBool("Attack",false);
+            }   
+        }
+    }
+   
 }

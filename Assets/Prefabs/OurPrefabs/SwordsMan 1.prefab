@@ -278,6 +278,10 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 5674939221472646599, guid: dc76447737279124ba924e2b1e013849, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6684612098816555168, guid: dc76447737279124ba924e2b1e013849, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
