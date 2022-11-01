@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 public class ArcherAttack : Attack
 {
-    
+    [SerializeField] GameObject effect;
     [SerializeField] Arrow arrow;
     [SerializeField] Transform hand;
     float distance;
@@ -16,7 +16,8 @@ public class ArcherAttack : Attack
             if(rangeClass.enemiesInRange.Count > 0)
             {
                 target = rangeClass.enemiesInRange[0];
-                transform.DOLookAt(target.transform.position,.5f);
+                if(target != null)
+                    transform.DOLookAt(target.transform.position,.5f);
                 unit.state = State.attack;
                 unit.animator.SetBool("Attack", true);
                 
@@ -35,6 +36,12 @@ public class ArcherAttack : Attack
     {
         if(target != null)
         {
+            if(effect != null)
+            {
+                Instantiate(effect,hand.position,Quaternion.identity);
+            }
+            if(sound != null)
+                audioSource.PlayOneShot(sound);
             distance= Vector3.Distance(transform.position,target.transform.position);
             var arrowObj = Instantiate(arrow,hand.position,Quaternion.identity);
             arrowObj.rangeAttack = this;

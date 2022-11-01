@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using GoogleMobileAds.Common;  
+using GoogleMobileAds.Api;
 
     public enum GameStage
     {
@@ -11,9 +13,17 @@ using UnityEngine.UI;
     }
 public class GameManager : MonoBehaviour,IDataPersistence
 {
+    RewardedAd rewardedAd;
+    [SerializeField] string id = "ca-app-pub-3763894342904430~4940710843";
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioSource audioSource2;
+    [SerializeField] AudioClip coinSound;
+    [SerializeField] AudioClip selectSound;
+    [SerializeField] AudioClip winSound;
     public int level;
     [Header("Lists")]
-
+    [SerializeField] Button noThxBtn;
+    [SerializeField] Button retryBtn;
     public List<Grid> allGrids;
     public List<Unit> allEnemies;
     [SerializeField] List<Grid> ourGrids;
@@ -63,6 +73,8 @@ public class GameManager : MonoBehaviour,IDataPersistence
     }
     void Start()
     {
+        audioSource2 = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = winSound;
         meleeCostText.text = CalcMeleeCost().ToString();
         rangeCostText.text = CalcRangeCost().ToString();
         CheckGold();
@@ -74,10 +86,39 @@ public class GameManager : MonoBehaviour,IDataPersistence
         }
         FindAllEnemies();
     }
+    public void MeleeAd()
+    {
+        rewardedAd = new RewardedAd(id);
+        AdRequest request = new AdRequest.Builder().Build();
+        rewardedAd.OnUserEarnedReward += SendRewardMelee;
+        rewardedAd.LoadAd(request);
+        if(rewardedAd.IsLoaded())
+            rewardedAd.Show();
+    }
+    public void SendRewardMelee(object sender, Reward e)
+    {
+        gold += CalcMeleeCost();
+        BuyMeleeHero();
+    }
+    public void RangeAd()
+    {
+        rewardedAd = new RewardedAd(id);
+        AdRequest request = new AdRequest.Builder().Build();
+        rewardedAd.OnUserEarnedReward += SendRewardRange;
+        rewardedAd.LoadAd(request);
+        if(rewardedAd.IsLoaded())
+            rewardedAd.Show();
+    }
+    public void SendRewardRange(object sender, Reward e)
+    {
+        gold += CalcRangeCost();
+        BuyRangeHero();
+    }
     IEnumerator Dance(List<Unit> winnerTeam, GameObject canvas ,  bool win)
     {
         for (int i = 0; i < winnerTeam.Count; i++)
         {
+            winnerTeam[i].agent.isStopped = true;
             winnerTeam[i].Dance();    
             winnerTeam[i].GetComponent<Movement>().speed = 0;        
         }
@@ -110,6 +151,10 @@ public class GameManager : MonoBehaviour,IDataPersistence
             }
             else if(allEnemies.Count == 0)
             {
+                if(winSound!=null){
+                    Debug.Log(" win");
+                    audioSource2.PlayOneShot(winSound);
+                }
                 StartCoroutine(Dance(allAlly,winCanvas,true));
                 level++;
                 gameStage = GameStage.hazirlik;
@@ -156,14 +201,16 @@ public class GameManager : MonoBehaviour,IDataPersistence
     }
     public void BuyRangeHero()
     {
+        AudioSource.PlayClipAtPoint(selectSound,Camera.main.transform.position);
         if(gameStage == GameStage.hazirlik && gold >= CalcRangeCost())
         {
-            gold-= CalcRangeCost();
-            rangeBuyCount++;
-            rangeCostText.text = CalcRangeCost().ToString();
             var grid = FindRandomEmptyGrid();
             if(grid == null)
                 return;
+            gold-= CalcRangeCost();
+            rangeBuyCount++;
+            rangeCostText.text = CalcRangeCost().ToString();
+
             var obj = Instantiate(rangePrefab,Vector3.zero,Quaternion.identity);
             SelectManager.instance.SahaIcıBosYereHeroKoy(grid,obj.transform.GetChild(0).GetComponent<Unit>());   
             obj.transform.position = grid.transform.position;
@@ -172,14 +219,15 @@ public class GameManager : MonoBehaviour,IDataPersistence
     }
     public void BuyMeleeHero()
     {
+        AudioSource.PlayClipAtPoint(selectSound,Camera.main.transform.position);
         if(gameStage == GameStage.hazirlik && gold >= CalcMeleeCost())
         {
-            gold -= CalcMeleeCost();
-            meleeBuyCount++;
-            meleeCostText.text = CalcMeleeCost().ToString();
             var grid = FindRandomEmptyGrid();
             if(grid == null)
                 return;
+            gold -= CalcMeleeCost();
+            meleeBuyCount++;
+            meleeCostText.text = CalcMeleeCost().ToString();
             var obj = Instantiate(meleePrefab,Vector3.zero,Quaternion.identity);
             SelectManager.instance.SahaIcıBosYereHeroKoy(grid,obj.transform.GetChild(0).GetComponent<Unit>());   
             obj.transform.position = grid.transform.position;
@@ -188,6 +236,9 @@ public class GameManager : MonoBehaviour,IDataPersistence
     }
     public void StartBattleBtn()
     {
+        retryBtn.enabled = true;
+        noThxBtn.enabled = true;
+
         buyPanel.SetActive(false);
         FindAllEnemies();
         for (int i = 0; i < allGrids.Count; i++)
@@ -208,6 +259,8 @@ public class GameManager : MonoBehaviour,IDataPersistence
     }
     public void NoThanksBtn()
     {
+        noThxBtn.enabled = false;
+        retryBtn.enabled = false;
         ClearArea();
         LoadLevel();
         StartCoroutine(EarnGoldAnim());
@@ -217,6 +270,10 @@ public class GameManager : MonoBehaviour,IDataPersistence
     }
     public void LoadLevel()
     {
+        if(LevelManager.instance.levels.Count == level)
+        {
+            level = 0;
+        }
         Vector3 rot;
         for (int i = 0; i < LevelManager.instance.levels[level].units.Count; i++)
         {
@@ -282,7 +339,7 @@ public class GameManager : MonoBehaviour,IDataPersistence
         }
         for (int i = 0; i < count; i++)
         {
-            list[i].transform.DOMove(goldinScene.transform.position,.7f).SetEase(ease).OnComplete(()=> SetGold(gold));//.OnComplete(()=> goldFlare.Play());
+            list[i].transform.DOMove(goldinScene.transform.position,.7f).SetEase(ease).OnComplete(()=> SetGold(gold)).OnComplete(()=> AudioSource.PlayClipAtPoint(coinSound,Camera.main.transform.position));//.OnComplete(()=> goldFlare.Play());
             yield return new WaitForSeconds(0.15f);
         }
         yield return new WaitForSeconds(.7f);

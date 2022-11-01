@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 837561282671584360}
   - component: {fileID: 3283543349751841666}
   - component: {fileID: 4518529712511304967}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: "alt\u0131gen 1 1"
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heroOnGround: {fileID: 0}
+  index: 0
 --- !u!64 &4518529712511304967
 MeshCollider:
   m_ObjectHideFlags: 0

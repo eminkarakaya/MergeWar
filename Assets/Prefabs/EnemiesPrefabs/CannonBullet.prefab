@@ -140,11 +140,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ad1df4ad865dc45961c61b7af53f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  isMissile: 1
+  particle: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3, type: 3}
   jumpPower: 1
   rangeAttack: {fileID: 0}
   ease: 1
   target: {fileID: 0}
   distance: 0
+  power: 2
+  expRange: 0
 --- !u!96 &7384398884038012235
 TrailRenderer:
   serializedVersion: 2

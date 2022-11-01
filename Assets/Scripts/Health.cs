@@ -5,7 +5,39 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
+    [SerializeField] protected float deathTime;
+    public float expMultiplier = 1;
+    public Vector3 dir;
+    Animator animator;
+    public int maxHp;
+    // public bool isDeath;
+    public Slider hpSlider;
+    [SerializeField] private int _hp;
+    public int hp{
+        get => _hp;
+        set{
+            _hp = value;
+            hpSlider.value = value;
+            if(_hp <= 0 )//&& !isDeath)
+            {
+                Death(deathTime);
+                // isDeath = true;
+            }
+        } 
+    }    
     void OnDisable()
+    {
+        DisableChar();
+    }
+    
+    protected virtual void Start()
+    {
+        animator = GetComponent<Animator>();
+        hpSlider.maxValue = maxHp;
+        hpSlider.value = maxHp;
+        hp = maxHp;
+    }
+    void DisableChar()
     {
         if(GameManager.instance.gameStage == GameStage.inGame)
         {
@@ -35,49 +67,12 @@ public class Health : MonoBehaviour
             GameManager.instance.CheckRoundFinish();
         }
     }
-    public int maxHp;
-    // public bool isDeath;
-    public Slider hpSlider;
-    [SerializeField] private int _hp;
-    public int hp{
-        get => _hp;
-        set{
-            _hp = value;
-            hpSlider.value = value;
-            if(_hp <= 0 )//&& !isDeath)
-            {
-                Death();
-                // isDeath = true;
-            }
-        } 
-    }    
-    void Start()
+    protected virtual void Death(float time)
     {
-        maxHp = 100;
-        hpSlider.maxValue = maxHp;
-        hpSlider.value = maxHp;
-        hp = maxHp;
-    }
-    
-    // public void Death(Unit unit)
-    // {
-    //     if(unit.TryGetComponent(out Hero hero))
-    //     {
-    //         isDeath = true;
-    //         GameManager.instance.livingHeros.Remove(unit);
-    //         this.gameObject.SetActive(false);
-    //     }
-    //     else if(unit.TryGetComponent(out Minyonlar minyonlar))
-    //     {
-    //         GameManager.instance.minionsOnGround.Remove(unit);
-    //         isDeath = true;
-    //         this.gameObject.SetActive(false);
-    //     }
-    //     OnDeath?.Invoke();
-    // }
-    public void Death()
-    {
-        Destroy(this.gameObject);
+        hpSlider.gameObject.SetActive(false);
+        animator.enabled = false;
+        DisableChar();
+        Destroy(this.gameObject,time);
     }
 
 }

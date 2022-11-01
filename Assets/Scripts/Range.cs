@@ -6,8 +6,8 @@ public class Range : MonoBehaviour
 {
     Attack parentAttack;
     public List<Unit> enemiesInRange = new List<Unit>();
-    SphereCollider rangeCollider;
-    bool isColliderActive;
+    [SerializeField] SphereCollider rangeCollider;
+    [SerializeField] bool isColliderActive;
     void Awake()
     {
         parentAttack = GetComponentInParent<Attack>();

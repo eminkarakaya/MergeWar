@@ -22,25 +22,31 @@ public class SelectManager : MonoBehaviour
     }
     public void Select()
     {
-        
-
-        if(Input.GetMouseButtonDown(0))
+        if(Input.touchCount > 0)
         {
-            isPressed = true;
-            if(selectedObject == null)
+            Touch touch = Input.GetTouch(0);
+
+        // if(Input.GetMouseButtonDown(0))
+        // {
+            if(touch.phase == TouchPhase.Began)
             {
-                RaycastHit hit = CastRay(mask);
-                if(hit.collider != null)
+                isPressed = true;
+                if(selectedObject == null)
                 {
-                    
-                    if(!hit.collider.CompareTag("Char"))
+                    RaycastHit hit = CastRay(mask);
+                    if(hit.collider != null)
                     {
-                        return;
+
+                        if(!hit.collider.CompareTag("Char"))
+                        {
+                            return;
+                        }
+                        selectedObject = hit.collider.gameObject.GetComponent<Unit>();
                     }
-                    selectedObject = hit.collider.gameObject.GetComponent<Unit>();
                 }
             }
         }
+        // }
 
 
         if(selectedObject != null && isPressed)
@@ -51,8 +57,11 @@ public class SelectManager : MonoBehaviour
             selectedObject.transform.parent.position = new Vector3(worldPosition.x,.5f,worldPosition.z);
         }
 
-        
-            if(Input.GetMouseButtonUp(0))
+        if(Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if(touch.phase == TouchPhase.Ended)
+            // if(Input.GetMouseButtonUp(0))
             {   
                 if(selectedObject == null)
                 {
@@ -65,32 +74,24 @@ public class SelectManager : MonoBehaviour
                 else
                 {
                     Grid hitGridController  = hit.collider.GetComponent<Grid>();
-
-                    // uzerınde car olan grıde car koyarken
                     if(hit.collider.GetComponent<Grid>().heroOnGround != null)
                     {
                         if(hit.collider.GetComponent<Grid>() == selectedObject.whichGrid)
                         {
                             HerosInsertionCancel(selectedObject.whichGrid);
                         }
-                       DoluYereHeroKoy(selectedObject.whichGrid,hitGridController);
+                        if(selectedObject != null)
+                            DoluYereHeroKoy(selectedObject.whichGrid,hitGridController);
                     }
                     else
                     {
-                        // if(GameManager.instance.gameStage == GameStage.inGame)
-                        // {
                         SahaIcıBosYereHeroKoy(hitGridController,selectedObject);
-                            // selectedObject.transform.parent.position = selectedObject.GetComponent<Unit>().whichGrid.transform.position;
-                            // selectedObject = null;
-                            // isPressed = false;
-                            // return;
-                        // }
-                        //sahaya adam koydugumuz yer
                     }
                 selectedObject = null;
                 isPressed = false;
                 }
             }
+        }
     }
     public void HerosInsertionCancel(Grid grid)
     {
@@ -118,12 +119,15 @@ public class SelectManager : MonoBehaviour
     }
     public void Merge(Unit otherUnit)
     {
+        
         if(selectedObject.nextLevelUnitPrefab == null)
         {
             HerosInsertionCancel(selectedObject.whichGrid);
         }
         var obj = Instantiate(selectedObject.nextLevelUnitPrefab,otherUnit.whichGrid.transform.position,Quaternion.identity);
         var unit = obj.transform.GetChild(0).GetComponent<Unit>();
+        if(unit.mergeSound != null)
+            AudioSource.PlayClipAtPoint(unit.mergeSound,Camera.main.transform.position);
         unit.whichGrid = otherUnit.whichGrid;
         selectedObject.whichGrid.heroOnGround = null;
         otherUnit.whichGrid.heroOnGround = unit;
@@ -160,11 +164,12 @@ public class SelectManager : MonoBehaviour
     }
     public void SahaIcıBosYereHeroKoy(Grid hitGrid , Unit selectedObject)
     {
+        if(selectedObject.audioSource != null)
+            selectedObject.audioSource.PlayOneShot(selectedObject.mergeSound);
         if(selectedObject.whichGrid != null)
             selectedObject.whichGrid.heroOnGround = null;  
         selectedObject.transform.parent.position = hitGrid.gameObject.transform.position;
         selectedObject.whichGrid = hitGrid;
         hitGrid.heroOnGround = selectedObject;
-        return;
     }
 }

@@ -19,11 +19,14 @@ public enum UnitType{
     Archer,
     Cannon,
     Knight,
-    Tank
+    Tank,
+    Artillery
 }
 public class Unit : MonoBehaviour
 {
-    
+    [SerializeField] GameObject enemyMarkObject;
+    public AudioSource audioSource;
+    public AudioClip mergeSound;
     public GameObject typeImageCanvas;
     public Image typeImageBackground;
     public Transform hitPos;
@@ -35,11 +38,19 @@ public class Unit : MonoBehaviour
     public Side side;
     public State state;
     [HideInInspector] public NavMeshAgent agent;
-
-    void Start()
+    void Awake()
     {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        
+    }
+    void Start()
+    {        
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        if(side == Side.ally)
+        {
+            enemyMarkObject.SetActive(false);
+        }
     }
     public void Dance()
     {

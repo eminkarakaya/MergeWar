@@ -6,13 +6,13 @@ public class MeleeAttack : Attack
 {
     void Update()
     {
-        
         if(GameManager.instance.gameStage == GameStage.inGame)
         {
             if(rangeClass.enemiesInRange.Count > 0)
             {
                 target = rangeClass.enemiesInRange[0];
-                transform.LookAt(target.transform);
+                if(target != null)
+                    transform.LookAt(target.transform);
                 unit.state = State.attack;
                 unit.animator.SetBool("Attack",true);
                 if(TryGetComponent(out Movement movement))

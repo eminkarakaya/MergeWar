@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 313d413b37191844a8a08ee2d70431ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentAttack: {fileID: 0}
   enemiesInRange: []
+  rangeCollider: {fileID: 0}
+  isColliderActive: 0
 --- !u!135 &3574980897615332544
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -55,7 +56,7 @@ SphereCollider:
   m_GameObject: {fileID: 6270774825204152077}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
