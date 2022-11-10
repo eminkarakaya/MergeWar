@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
-using GoogleMobileAds.Common;  
-using GoogleMobileAds.Api;
+//using GoogleMobileAds.Common;  
+//using GoogleMobileAds.Api;
 
     public enum GameStage
     {
@@ -13,7 +13,7 @@ using GoogleMobileAds.Api;
     }
 public class GameManager : MonoBehaviour,IDataPersistence
 {
-    RewardedAd rewardedAd;
+    //RewardedAd rewardedAd;
     [SerializeField] string id = "ca-app-pub-3763894342904430~4940710843";
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioSource audioSource2;
@@ -86,34 +86,34 @@ public class GameManager : MonoBehaviour,IDataPersistence
         }
         FindAllEnemies();
     }
-    public void MeleeAd()
-    {
-        rewardedAd = new RewardedAd(id);
-        AdRequest request = new AdRequest.Builder().Build();
-        rewardedAd.OnUserEarnedReward += SendRewardMelee;
-        rewardedAd.LoadAd(request);
-        if(rewardedAd.IsLoaded())
-            rewardedAd.Show();
-    }
-    public void SendRewardMelee(object sender, Reward e)
-    {
-        gold += CalcMeleeCost();
-        BuyMeleeHero();
-    }
-    public void RangeAd()
-    {
-        rewardedAd = new RewardedAd(id);
-        AdRequest request = new AdRequest.Builder().Build();
-        rewardedAd.OnUserEarnedReward += SendRewardRange;
-        rewardedAd.LoadAd(request);
-        if(rewardedAd.IsLoaded())
-            rewardedAd.Show();
-    }
-    public void SendRewardRange(object sender, Reward e)
-    {
-        gold += CalcRangeCost();
-        BuyRangeHero();
-    }
+    //public void MeleeAd()
+    //{
+    //    rewardedAd = new RewardedAd(id);
+    //    AdRequest request = new AdRequest.Builder().Build();
+    //    rewardedAd.OnUserEarnedReward += SendRewardMelee;
+    //    rewardedAd.LoadAd(request);
+    //    if(rewardedAd.IsLoaded())
+    //        rewardedAd.Show();
+    //}
+    //public void SendRewardMelee(object sender, Reward e)
+    //{
+    //    gold += CalcMeleeCost();
+    //    BuyMeleeHero();
+    //}
+    //public void RangeAd()
+    //{
+    //    rewardedAd = new RewardedAd(id);
+    //    AdRequest request = new AdRequest.Builder().Build();
+    //    rewardedAd.OnUserEarnedReward += SendRewardRange;
+    //    rewardedAd.LoadAd(request);
+    //    if(rewardedAd.IsLoaded())
+    //        rewardedAd.Show();
+    //}
+    //public void SendRewardRange(object sender, Reward e)
+    //{
+    //    gold += CalcRangeCost();
+    //    BuyRangeHero();
+    //}
     IEnumerator Dance(List<Unit> winnerTeam, GameObject canvas ,  bool win)
     {
         for (int i = 0; i < winnerTeam.Count; i++)
