@@ -766,11 +766,12 @@ MonoBehaviour:
   enemyColor: {r: 1, g: 0, b: 0, a: 1}
   goldinScene: {fileID: 94472071}
   ease: 8
-  parent: {fileID: 1985995756}
   goldPrefab: {fileID: 5189257243165574000, guid: 7eb7b7cb041216a49a61fc6feb9c2af2,
     type: 3}
+  parent: {fileID: 1985995756}
   gameStage: 1
   oyunBittimi: 0
+  earnedGold: 0
   buyPanel: {fileID: 2115777003}
   meleePrefab: {fileID: 4522810309035698420, guid: bc1d33a174fcc57499671499928ae6c9,
     type: 3}
@@ -781,7 +782,7 @@ MonoBehaviour:
   goldText: {fileID: 1610755091}
   rangeAdBtn: {fileID: 1550429481}
   meleeAdBtn: {fileID: 1049852194}
-  _gold: 0
+  _gold: 1000
 --- !u!114 &414868086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -795,7 +796,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
-  - units:
+  - winGold: 1000
+    loseGold: 400
+    units:
     - index: 5
       unit: {fileID: 3342845075260712360, guid: b4d07b0dde1fe9949be18ac0d12abc1d,
         type: 3}
@@ -823,7 +826,9 @@ MonoBehaviour:
     - index: 1
       unit: {fileID: 5100331074626476240, guid: b8f9f35e6fa4b7644b42055d3391e53b,
         type: 3}
-  - units:
+  - winGold: 3000
+    loseGold: 500
+    units:
     - index: 1
       unit: {fileID: 4522810309035698420, guid: bc1d33a174fcc57499671499928ae6c9,
         type: 3}
@@ -842,7 +847,9 @@ MonoBehaviour:
     - index: 30
       unit: {fileID: 4522810309035698420, guid: bc1d33a174fcc57499671499928ae6c9,
         type: 3}
-  - units:
+  - winGold: 5000
+    loseGold: 1000
+    units:
     - index: 12
       unit: {fileID: 4522810309035698420, guid: bc1d33a174fcc57499671499928ae6c9,
         type: 3}
@@ -867,7 +874,9 @@ MonoBehaviour:
     - index: 25
       unit: {fileID: 3342845075260712360, guid: b4d07b0dde1fe9949be18ac0d12abc1d,
         type: 3}
-  - units:
+  - winGold: 6000
+    loseGold: 2000
+    units:
     - index: 5
       unit: {fileID: 1976537629845328277, guid: 23a6b082466df1248a6acd361c809e1a,
         type: 3}
@@ -889,7 +898,9 @@ MonoBehaviour:
     - index: 20
       unit: {fileID: 4522810309035698420, guid: bc1d33a174fcc57499671499928ae6c9,
         type: 3}
-  - units:
+  - winGold: 12000
+    loseGold: 2000
+    units:
     - index: 13
       unit: {fileID: 1976537629845328277, guid: 23a6b082466df1248a6acd361c809e1a,
         type: 3}
@@ -917,7 +928,9 @@ MonoBehaviour:
     - index: 17
       unit: {fileID: 4522810309035698420, guid: bc1d33a174fcc57499671499928ae6c9,
         type: 3}
-  - units:
+  - winGold: 15000
+    loseGold: 5000
+    units:
     - index: 5
       unit: {fileID: 1976537629845328277, guid: 23a6b082466df1248a6acd361c809e1a,
         type: 3}
@@ -938,7 +951,9 @@ MonoBehaviour:
     - index: 20
       unit: {fileID: 4522810309035698420, guid: bc1d33a174fcc57499671499928ae6c9,
         type: 3}
-  - units:
+  - winGold: 18000
+    loseGold: 4000
+    units:
     - index: 5
       unit: {fileID: 1976537629845328277, guid: 23a6b082466df1248a6acd361c809e1a,
         type: 3}
@@ -960,7 +975,9 @@ MonoBehaviour:
     - index: 20
       unit: {fileID: 4522810309035698420, guid: bc1d33a174fcc57499671499928ae6c9,
         type: 3}
-  - units:
+  - winGold: 20000
+    loseGold: 2000
+    units:
     - index: 5
       unit: {fileID: 1976537629845328277, guid: 23a6b082466df1248a6acd361c809e1a,
         type: 3}
@@ -982,7 +999,9 @@ MonoBehaviour:
     - index: 20
       unit: {fileID: 4522810309035698420, guid: bc1d33a174fcc57499671499928ae6c9,
         type: 3}
-  - units:
+  - winGold: 20000
+    loseGold: 2000
+    units:
     - index: 5
       unit: {fileID: 1976537629845328277, guid: 23a6b082466df1248a6acd361c809e1a,
         type: 3}
@@ -1004,7 +1023,9 @@ MonoBehaviour:
     - index: 20
       unit: {fileID: 4522810309035698420, guid: bc1d33a174fcc57499671499928ae6c9,
         type: 3}
-  - units:
+  - winGold: 20000
+    loseGold: 2000
+    units:
     - index: 5
       unit: {fileID: 1976537629845328277, guid: 23a6b082466df1248a6acd361c809e1a,
         type: 3}
@@ -1026,7 +1047,9 @@ MonoBehaviour:
     - index: 20
       unit: {fileID: 4522810309035698420, guid: bc1d33a174fcc57499671499928ae6c9,
         type: 3}
-  - units:
+  - winGold: 20000
+    loseGold: 2000
+    units:
     - index: 5
       unit: {fileID: 1976537629845328277, guid: 23a6b082466df1248a6acd361c809e1a,
         type: 3}
@@ -1048,7 +1071,9 @@ MonoBehaviour:
     - index: 20
       unit: {fileID: 4522810309035698420, guid: bc1d33a174fcc57499671499928ae6c9,
         type: 3}
-  - units:
+  - winGold: 20000
+    loseGold: 2000
+    units:
     - index: 5
       unit: {fileID: 1976537629845328277, guid: 23a6b082466df1248a6acd361c809e1a,
         type: 3}
@@ -3713,7 +3738,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.4553775, y: -0.005633156, z: 0.0028650754, w: 0.8902761}
-  m_LocalPosition: {x: 31.787138, y: 86.20984, z: -78.7401}
+  m_LocalPosition: {x: 35.18, y: 95.94, z: -85.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

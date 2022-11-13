@@ -15,7 +15,8 @@ public class ArcherAttack : Attack
         {
             if(rangeClass.enemiesInRange.Count > 0)
             {
-                target = rangeClass.enemiesInRange[0];
+                if(target == null)
+                    target = FindNearestObject(rangeClass.enemiesInRange);
                 if(target != null)
                     transform.DOLookAt(target.transform.position,.5f);
                 unit.state = State.attack;

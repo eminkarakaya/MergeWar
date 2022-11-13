@@ -10,7 +10,10 @@ public class MeleeAttack : Attack
         {
             if(rangeClass.enemiesInRange.Count > 0)
             {
-                target = rangeClass.enemiesInRange[0];
+                if(target == null)
+                {
+                    target = FindNearestObject(rangeClass.enemiesInRange);
+                }
                 if(target != null)
                     transform.LookAt(target.transform);
                 unit.state = State.attack;

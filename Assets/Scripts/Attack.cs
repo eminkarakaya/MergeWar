@@ -40,4 +40,20 @@ public class Attack : MonoBehaviour
         }
         unit.animator.SetBool("Attack",true);
     }
+    protected Unit FindNearestObject(List<Unit> list)
+    {
+        if (list.Count == 0)
+            return null;
+        var distance = Vector3.Distance(list[0].transform.position, this.transform.position);
+        var nearestObject = list[0];
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (Vector3.Distance(this.transform.position, list[i].transform.position) < distance)
+            {
+                nearestObject = list[i];
+                distance = Vector3.Distance(this.transform.position, list[i].transform.position);
+            }
+        }
+        return nearestObject;
+    }
 }

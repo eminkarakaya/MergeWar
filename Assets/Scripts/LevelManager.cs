@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour //, IDataPersistence
     public static LevelManager instance{get =>_instance;}
     [System.Serializable] public struct Levels
     {
+        public int winGold, loseGold;
         public List<Units> units;
     }
     [System.Serializable] public struct Units{

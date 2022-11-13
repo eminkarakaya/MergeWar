@@ -13,13 +13,19 @@ using UnityEngine.UI;
     }
 public class GameManager : MonoBehaviour,IDataPersistence
 {
+    private static GameManager _instance;
+    public static GameManager instance{get =>_instance;}
     //RewardedAd rewardedAd;
+    #region sounds
     [SerializeField] string id = "ca-app-pub-3763894342904430~4940710843";
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioSource audioSource2;
     [SerializeField] AudioClip coinSound;
     [SerializeField] AudioClip selectSound;
     [SerializeField] AudioClip winSound;
+    #endregion
+
+    #region Lists
     public int level;
     [Header("Lists")]
     [SerializeField] Button noThxBtn;
@@ -29,39 +35,34 @@ public class GameManager : MonoBehaviour,IDataPersistence
     [SerializeField] List<Grid> ourGrids;
     public List<Unit> allAlly;
     public List<Grid> enemiesGrids;
+    #endregion
+
+    #region UI
     [Space(20)]
     [Header("UI")] 
-    [SerializeField] GameObject winCanvas;
-    [SerializeField] GameObject loseCanvas;
+    [SerializeField] GameObject winCanvas, loseCanvas;
     float distanceFactor = 100;
     float radius =200;
-    [SerializeField] Text WinLoseText;
-    [SerializeField] Text EarnedGoldText;
+    [SerializeField] Text WinLoseText, EarnedGoldText;
     [SerializeField] Color enemyColor;
     [SerializeField] RectTransform goldinScene;
     [SerializeField] Ease ease;
-    [SerializeField] Transform parent;
-    int earnedGold;
     [SerializeField] GameObject goldPrefab;
+    [SerializeField] Transform parent;
+    #endregion
+
     public GameStage gameStage;
-    private static GameManager _instance;
-    public static GameManager instance{get =>_instance;}
     [HideInInspector] public bool oyunBittimi;
+    [SerializeField] int earnedGold;
     [Header("HeroBuy")]
     public GameObject buyPanel;
-    public GameObject meleePrefab;
-    public GameObject rangePrefab;
-    int defaultRangeCost = 45;
-    int defaultMeleeCost = 30;
-    int rangeBuyCount;
-    int meleeBuyCount;
-    [SerializeField] Text meleeCostText;
-    [SerializeField] Text rangeCostText;
-    [SerializeField] Text goldText;
-    [SerializeField] GameObject rangeAdBtn;
-    [SerializeField] GameObject meleeAdBtn;
+    public GameObject meleePrefab, rangePrefab;
+    int defaultRangeCost = 45, defaultMeleeCost = 30;
+    int rangeBuyCount,meleeBuyCount;
+    [SerializeField] Text meleeCostText,rangeCostText,goldText;
+    [SerializeField] GameObject rangeAdBtn,meleeAdBtn;
     [SerializeField] private int _gold;
-    public int gold{ get => _gold;
+    public int gold{ get => _gold = 4000;
         set{
             _gold = value;
             goldText.text = _gold.ToString();
@@ -86,34 +87,36 @@ public class GameManager : MonoBehaviour,IDataPersistence
         }
         FindAllEnemies();
     }
-    //public void MeleeAd()
-    //{
-    //    rewardedAd = new RewardedAd(id);
-    //    AdRequest request = new AdRequest.Builder().Build();
-    //    rewardedAd.OnUserEarnedReward += SendRewardMelee;
-    //    rewardedAd.LoadAd(request);
-    //    if(rewardedAd.IsLoaded())
-    //        rewardedAd.Show();
-    //}
-    //public void SendRewardMelee(object sender, Reward e)
-    //{
-    //    gold += CalcMeleeCost();
-    //    BuyMeleeHero();
-    //}
-    //public void RangeAd()
-    //{
-    //    rewardedAd = new RewardedAd(id);
-    //    AdRequest request = new AdRequest.Builder().Build();
-    //    rewardedAd.OnUserEarnedReward += SendRewardRange;
-    //    rewardedAd.LoadAd(request);
-    //    if(rewardedAd.IsLoaded())
-    //        rewardedAd.Show();
-    //}
-    //public void SendRewardRange(object sender, Reward e)
-    //{
-    //    gold += CalcRangeCost();
-    //    BuyRangeHero();
-    //}
+    public void MeleeAd()
+    {
+        //rewardedAd = new RewardedAd(id);
+        //AdRequest request = new AdRequest.Builder().Build();
+        //rewardedAd.OnUserEarnedReward += SendRewardMelee;
+        //rewardedAd.LoadAd(request);
+        //if(rewardedAd.IsLoaded())
+        //    rewardedAd.Show();
+        SendRewardMelee();
+    }
+    public void SendRewardMelee(/*object sender, Reward e*/)
+    {
+        gold += CalcMeleeCost();
+        BuyMeleeHero();
+    }
+    public void RangeAd()
+    {
+        //rewardedAd = new RewardedAd(id);
+        //AdRequest request = new AdRequest.Builder().Build();
+        //rewardedAd.OnUserEarnedReward += SendRewardRange;
+        //rewardedAd.LoadAd(request);
+        //if (rewardedAd.IsLoaded())
+        //    rewardedAd.Show();
+        SendRewardRange();
+    }
+    public void SendRewardRange(/*object sender, Reward e*/)
+    {
+        gold += CalcRangeCost();
+        BuyRangeHero();
+    }
     IEnumerator Dance(List<Unit> winnerTeam, GameObject canvas ,  bool win)
     {
         for (int i = 0; i < winnerTeam.Count; i++)
@@ -126,12 +129,13 @@ public class GameManager : MonoBehaviour,IDataPersistence
         WinLoseText.gameObject.SetActive(true);
         if(win)
         {
+            earnedGold = LevelManager.instance.levels[level].winGold;
             WinLoseText.text = "WIN";
         }
         else
         {
             WinLoseText.text = "LOSE";
-            earnedGold = earnedGold/2;
+            earnedGold = LevelManager.instance.levels[level].loseGold;
         }
         EarnedGoldText.gameObject.SetActive(true);
         EarnedGoldText.text = earnedGold.ToString();
@@ -139,6 +143,8 @@ public class GameManager : MonoBehaviour,IDataPersistence
         
         canvas.SetActive(true);
     }
+
+
     public void CheckRoundFinish()
     {
         if(!oyunBittimi)
@@ -163,6 +169,8 @@ public class GameManager : MonoBehaviour,IDataPersistence
         }
         
     }
+
+
     public int CalcMeleeCost()
     {
         return (defaultMeleeCost*meleeBuyCount) + defaultMeleeCost;
@@ -171,6 +179,8 @@ public class GameManager : MonoBehaviour,IDataPersistence
     {
         return (defaultRangeCost*rangeBuyCount) + defaultRangeCost;
     }
+
+
     public void LoadData(GameData data)
     {
         gold = data.gold;
@@ -185,6 +195,8 @@ public class GameManager : MonoBehaviour,IDataPersistence
         data.meleeBuyCount = meleeBuyCount;
         data.rangeBuyCount = rangeBuyCount;
     }
+
+
     Grid FindRandomEmptyGrid()
     {
         List<Grid> tempList = new List<Grid>();
@@ -199,6 +211,8 @@ public class GameManager : MonoBehaviour,IDataPersistence
             return null;
         return tempList[Random.Range(0,tempList.Count)];
     }
+
+
     public void BuyRangeHero()
     {
         AudioSource.PlayClipAtPoint(selectSound,Camera.main.transform.position);
@@ -234,6 +248,8 @@ public class GameManager : MonoBehaviour,IDataPersistence
         }
         CheckGold();
     }
+
+
     public void StartBattleBtn()
     {
         retryBtn.enabled = true;
@@ -252,11 +268,16 @@ public class GameManager : MonoBehaviour,IDataPersistence
         }
         gameStage = GameStage.inGame;
     }
+
+
     void SetGold(int count)
     {
+        Debug.Log(gold);
         gold += count;
         goldText.text = gold.ToString();
     }
+
+
     public void NoThanksBtn()
     {
         noThxBtn.enabled = false;
@@ -268,6 +289,7 @@ public class GameManager : MonoBehaviour,IDataPersistence
         EarnedGoldText.gameObject.SetActive(false);
         oyunBittimi = false;
     }
+
     public void LoadLevel()
     {
         if(LevelManager.instance.levels.Count == level)
@@ -309,6 +331,8 @@ public class GameManager : MonoBehaviour,IDataPersistence
             obj.transform.position = pos;
         }
     }
+
+
     public void ClearArea()
     {
         for (int i = 0; i < allGrids.Count; i++)
@@ -320,6 +344,8 @@ public class GameManager : MonoBehaviour,IDataPersistence
             }
         }
     }
+
+
     public IEnumerator EarnGoldAnim()
     {
         var count = 15;
@@ -339,7 +365,8 @@ public class GameManager : MonoBehaviour,IDataPersistence
         }
         for (int i = 0; i < count; i++)
         {
-            list[i].transform.DOMove(goldinScene.transform.position,.7f).SetEase(ease).OnComplete(()=> SetGold(gold)).OnComplete(()=> AudioSource.PlayClipAtPoint(coinSound,Camera.main.transform.position));//.OnComplete(()=> goldFlare.Play());
+            list[i].transform.DOMove(goldinScene.transform.position,.7f).SetEase(ease).OnComplete(()=> AudioSource.PlayClipAtPoint(coinSound,Camera.main.transform.position));//.OnComplete(()=> goldFlare.Play());
+            SetGold(gold);
             yield return new WaitForSeconds(0.15f);
         }
         yield return new WaitForSeconds(.7f);
@@ -357,6 +384,7 @@ public class GameManager : MonoBehaviour,IDataPersistence
         // obj1.transform.DOMove(goldinScene.transform.position,.7f).SetEase(ease).OnComplete(()=> Destroy(obj1.gameObject)).OnComplete(()=> SetGold(gold));
 
     }
+
     public void FindAllEnemies()
     {
         allEnemies.Clear();
@@ -376,10 +404,13 @@ public class GameManager : MonoBehaviour,IDataPersistence
             }
         }
     }
+
     public void WatchAds()
     {
         StartCoroutine(EarnGoldAnim());
     }
+
+
     void CheckGold()
     {
         if(CalcMeleeCost() > gold)
